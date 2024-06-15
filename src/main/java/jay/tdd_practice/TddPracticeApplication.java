@@ -8,6 +8,7 @@ public class TddPracticeApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(TddPracticeApplication.class, args);
+
 	}
 
 }
