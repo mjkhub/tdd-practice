@@ -1,5 +1,6 @@
 package jay.tdd_practice.password;
 
+import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.*;
@@ -62,6 +63,7 @@ class PasswordStrengthMeterTest {
     @Test
     public void 아무것도_만족x(){
         assertStrength("!@#$", PasswordStrength.WEEK);
+
     }
 
 

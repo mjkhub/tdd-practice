@@ -13,35 +13,33 @@ class ProductPriceCalculatorTest {
     public void 할인적용_x() {
 
         PriceCalculateRequest priceCalculateRequest = mock(PriceCalculateRequest.class);
-        int price = 1000;
-        when(priceCalculateRequest.getPrice()).thenReturn(price);
+        when(priceCalculateRequest.getPrice()).thenReturn(1000);
 
         double totalPrice = productPriceCalculator.calculatePrice(priceCalculateRequest);
 
-        Assertions.assertThat(totalPrice).isEqualTo(price*1.0);
+        Assertions.assertThat(totalPrice).isEqualTo(1000 * 1.0);
     }
 
     @Test
     public void 할인적용_10퍼센트() {
 
         PriceCalculateRequest priceCalculateRequest = mock(PriceCalculateRequest.class);
-        int price = 150_000;
-        when(priceCalculateRequest.getPrice()).thenReturn(price);
+        when(priceCalculateRequest.getPrice()).thenReturn(150_000);
+
         double totalPrice = productPriceCalculator.calculatePrice(priceCalculateRequest);
 
-        Assertions.assertThat(totalPrice).isEqualTo( price * 0.9);
+        Assertions.assertThat(totalPrice).isEqualTo( 150_000 * 0.9);
 
     }
 
     @Test
     public void 할인적용_15퍼센트() {
         PriceCalculateRequest priceCalculateRequest = mock(PriceCalculateRequest.class);
-        int price = 300_000;
-        when(priceCalculateRequest.getPrice()).thenReturn(price);
+        when(priceCalculateRequest.getPrice()).thenReturn(300_000);
 
         double totalPrice = productPriceCalculator.calculatePrice(priceCalculateRequest);
 
-        Assertions.assertThat(totalPrice).isEqualTo( price * 0.85);
+        Assertions.assertThat(totalPrice).isEqualTo( 300_000 * 0.85);
 
     }
 
@@ -49,12 +47,11 @@ class ProductPriceCalculatorTest {
     public void 할인적용_20퍼센트() {
 
         PriceCalculateRequest priceCalculateRequest = mock(PriceCalculateRequest.class);
-        int price = 600_000;
-        when(priceCalculateRequest.getPrice()).thenReturn(price);
+        when(priceCalculateRequest.getPrice()).thenReturn(600_000);
 
         double totalPrice = productPriceCalculator.calculatePrice(priceCalculateRequest);
 
-        Assertions.assertThat(totalPrice).isEqualTo( price * 0.80);
+        Assertions.assertThat(totalPrice).isEqualTo(600_000 * 0.80);
 
     }
 
@@ -63,15 +60,14 @@ class ProductPriceCalculatorTest {
 
         //given
         PriceCalculateRequest priceCalculateRequest = mock(PriceCalculateRequest.class);
-        int price = 300_000;
-        when(priceCalculateRequest.getPrice()).thenReturn(price);
+        when(priceCalculateRequest.getPrice()).thenReturn(300_000);
         when(priceCalculateRequest.getMembership()).thenReturn(Membership.GOLD);
 
         //when
         double totalPrice = productPriceCalculator.calculatePrice(priceCalculateRequest);
 
         //then
-        Assertions.assertThat(totalPrice).isEqualTo( price * 0.85 * 0.95);
+        Assertions.assertThat(totalPrice).isEqualTo( 300_000 * 0.85 * 0.95);
 
     }
 
@@ -80,8 +76,7 @@ class ProductPriceCalculatorTest {
 
         //given
         PriceCalculateRequest priceCalculateRequest = mock(PriceCalculateRequest.class);
-        int price = 300_000;
-        when(priceCalculateRequest.getPrice()).thenReturn(price);
+        when(priceCalculateRequest.getPrice()).thenReturn(300_000);
         when(priceCalculateRequest.getMembership()).thenReturn(Membership.GOLD);
         when(priceCalculateRequest.getProductType()).thenReturn(ProductType.ELECTRONIC);
 
@@ -89,7 +84,7 @@ class ProductPriceCalculatorTest {
         double totalPrice = productPriceCalculator.calculatePrice(priceCalculateRequest);
 
         //then
-        Assertions.assertThat(totalPrice).isEqualTo( price * 0.85 * 0.93);
+        Assertions.assertThat(totalPrice).isEqualTo(300_000 * 0.85 * 0.93);
 
     }
 
@@ -99,8 +94,7 @@ class ProductPriceCalculatorTest {
 
         //given
         PriceCalculateRequest priceCalculateRequest = mock(PriceCalculateRequest.class);
-        int price = 300_000;
-        when(priceCalculateRequest.getPrice()).thenReturn(price);
+        when(priceCalculateRequest.getPrice()).thenReturn(300_000);
         when(priceCalculateRequest.getMembership()).thenReturn(Membership.GOLD);
         when(priceCalculateRequest.getProductType()).thenReturn(ProductType.FOOD);
 
@@ -108,10 +102,9 @@ class ProductPriceCalculatorTest {
         double totalPrice = productPriceCalculator.calculatePrice(priceCalculateRequest);
 
         //then
-        Assertions.assertThat(totalPrice).isEqualTo( price * 0.85 * 0.95);
+        Assertions.assertThat(totalPrice).isEqualTo(300_000 * 0.85 * 0.95);
 
     }
-
 
 
 }
