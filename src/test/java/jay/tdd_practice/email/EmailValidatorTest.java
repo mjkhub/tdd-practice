@@ -29,12 +29,10 @@ class EmailValidatorTest {
         assertEmail("  rlaakswo0687   @gmail.com", false);
     }
 
-
     @Test
     public void 골뱅이_기호_0개_2개이상(){
         assertEmail("rlaakswo0687gmail.com", false);
         assertEmail("rlaakswo0687@@gmail.com", false);
-        assertEmail("rlaakswo0687@@@@@gmail.com", false);
     }
 
     @Test
@@ -57,16 +55,26 @@ class EmailValidatorTest {
     }
 
     @Test
-    public void 도메인_Dot개수가_안맞는(){
+    public void 도메인_Dot으로끝(){
         assertEmail("rlaakswo0687@gmail.com.", false);
+
+    }
+    @Test
+    public void 도메인_Dot으로시작(){
         assertEmail("rlaakswo0687@.gmail.com", false);
+
+    }
+
+    @Test
+    public void 도메인_Dot_시작_연속_끝(){
+        assertEmail("rlaakswo0687@..gmail...com..", false);
+
     }
 
     @Test
     public void 영어_숫자_At_Dot_외에_다른문자(){
         assertEmail("!-_+", false);
     }
-
 
 
 }
