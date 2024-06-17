@@ -3,51 +3,114 @@ package jay.tdd_practice.product;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 
+import static org.mockito.Mockito.*;
 
 class ProductPriceCalculatorTest {
+
     private final ProductPriceCalculator productPriceCalculator = new ProductPriceCalculator();
 
     @Test
     public void 할인적용_x() {
 
+        PriceCalculateRequest priceCalculateRequest = mock(PriceCalculateRequest.class);
         int price = 1000;
-        float totalPrice = productPriceCalculator.calculatePrice(price);
-        Assertions.assertThat(totalPrice).isEqualTo((float)price);
+        when(priceCalculateRequest.getPrice()).thenReturn(price);
+
+        double totalPrice = productPriceCalculator.calculatePrice(priceCalculateRequest);
+
+        Assertions.assertThat(totalPrice).isEqualTo(price*1.0);
     }
 
     @Test
     public void 할인적용_10퍼센트() {
 
-        ProductPriceCalculator productPriceCalculator = new ProductPriceCalculator();
-
+        PriceCalculateRequest priceCalculateRequest = mock(PriceCalculateRequest.class);
         int price = 150_000;
-        float totalPrice = productPriceCalculator.calculatePrice(price);
-        Assertions.assertThat(totalPrice).isEqualTo( (float)(price * 0.9));
+        when(priceCalculateRequest.getPrice()).thenReturn(price);
+        double totalPrice = productPriceCalculator.calculatePrice(priceCalculateRequest);
+
+        Assertions.assertThat(totalPrice).isEqualTo( price * 0.9);
 
     }
 
     @Test
     public void 할인적용_15퍼센트() {
-
-        ProductPriceCalculator productPriceCalculator = new ProductPriceCalculator();
-
+        PriceCalculateRequest priceCalculateRequest = mock(PriceCalculateRequest.class);
         int price = 300_000;
-        float totalPrice = productPriceCalculator.calculatePrice(price);
-        Assertions.assertThat(totalPrice).isEqualTo( (float)(price * 0.85));
+        when(priceCalculateRequest.getPrice()).thenReturn(price);
+
+        double totalPrice = productPriceCalculator.calculatePrice(priceCalculateRequest);
+
+        Assertions.assertThat(totalPrice).isEqualTo( price * 0.85);
 
     }
 
     @Test
     public void 할인적용_20퍼센트() {
 
-        ProductPriceCalculator productPriceCalculator = new ProductPriceCalculator();
-
+        PriceCalculateRequest priceCalculateRequest = mock(PriceCalculateRequest.class);
         int price = 600_000;
-        float totalPrice = productPriceCalculator.calculatePrice(price);
-        Assertions.assertThat(totalPrice).isEqualTo( (float)(price * 0.80));
+        when(priceCalculateRequest.getPrice()).thenReturn(price);
+
+        double totalPrice = productPriceCalculator.calculatePrice(priceCalculateRequest);
+
+        Assertions.assertThat(totalPrice).isEqualTo( price * 0.80);
 
     }
 
+    @Test
+    public void 기본할인15퍼_회원할인_골드_5퍼() {
+
+        //given
+        PriceCalculateRequest priceCalculateRequest = mock(PriceCalculateRequest.class);
+        int price = 300_000;
+        when(priceCalculateRequest.getPrice()).thenReturn(price);
+        when(priceCalculateRequest.getMembership()).thenReturn(Membership.GOLD);
+
+        //when
+        double totalPrice = productPriceCalculator.calculatePrice(priceCalculateRequest);
+
+        //then
+        Assertions.assertThat(totalPrice).isEqualTo( price * 0.85 * 0.95);
+
+    }
+
+    @Test
+    public void 기본할인15퍼_회원할인_골드_5퍼_전자제품_7퍼할인() {
+
+        //given
+        PriceCalculateRequest priceCalculateRequest = mock(PriceCalculateRequest.class);
+        int price = 300_000;
+        when(priceCalculateRequest.getPrice()).thenReturn(price);
+        when(priceCalculateRequest.getMembership()).thenReturn(Membership.GOLD);
+        when(priceCalculateRequest.getProductType()).thenReturn(ProductType.ELECTRONIC);
+
+        //when
+        double totalPrice = productPriceCalculator.calculatePrice(priceCalculateRequest);
+
+        //then
+        Assertions.assertThat(totalPrice).isEqualTo( price * 0.85 * 0.93);
+
+    }
+
+
+    @Test
+    public void 기본할인15퍼_회원할인_골드_5퍼_음식_3퍼할인() {
+
+        //given
+        PriceCalculateRequest priceCalculateRequest = mock(PriceCalculateRequest.class);
+        int price = 300_000;
+        when(priceCalculateRequest.getPrice()).thenReturn(price);
+        when(priceCalculateRequest.getMembership()).thenReturn(Membership.GOLD);
+        when(priceCalculateRequest.getProductType()).thenReturn(ProductType.FOOD);
+
+        //when
+        double totalPrice = productPriceCalculator.calculatePrice(priceCalculateRequest);
+
+        //then
+        Assertions.assertThat(totalPrice).isEqualTo( price * 0.85 * 0.95);
+
+    }
 
 
 

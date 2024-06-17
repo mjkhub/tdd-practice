@@ -6,11 +6,11 @@ import lombok.Getter;
 @Getter
 public enum Membership {
 
-    SILVER(2), GOLD(5), PLATINUM(10);
+    SILVER(0.02), GOLD(0.05), PLATINUM(0.10);
 
-    private int discount;
+    private final double discount;
 
-    Membership(int discount) {
+    Membership(double discount) {
         this.discount = discount;
     }
 
