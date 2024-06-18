@@ -6,7 +6,7 @@ on:
       - main
 
 jobs:
-  build:
+  auto-test:
     runs-on: ubuntu-latest
 
     steps:
@@ -26,3 +26,9 @@ jobs:
 
       - name: Run tests
         run: ./gradlew test
+
+      - name: Upload test results
+        uses: actions/upload-artifact@v2
+        with:
+          name: test-results
+          path: build/test-results/test/
